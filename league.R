@@ -121,6 +121,7 @@ h2o.shutdown()
 #data analysis
 
 names(league)
+i =3
 for(i in 3:length(league)){
   d=names(league)[i]
   c=league[,c(2,i)]
@@ -130,5 +131,6 @@ for(i in 3:length(league)){
   newdat$blueWins = predict(fit, newdata=newdat, type="response")
   plot(blueWins ~ ., data=c, col="red4")
   lines(blueWins ~ ., data=newdat, col="green4", lwd=2)
+  abline(h=.5,col ='red',lwd = 4, lty = 1)
 }
 
