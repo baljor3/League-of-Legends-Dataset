@@ -9,6 +9,7 @@ library(caret)
 library(e1071)
 library(corrplot)
 library(caTools)
+library(dplyr)
 source("http://www.sthda.com/upload/rquery_cormat.r")
 
 league<-read.csv("high_diamond_ranked_10min.csv")
@@ -121,7 +122,7 @@ h2o.shutdown()
 #data analysis
 
 names(league)
-i =3
+
 for(i in 3:length(league)){
   d=names(league)[i]
   c=league[,c(2,i)]
@@ -132,5 +133,9 @@ for(i in 3:length(league)){
   plot(blueWins ~ ., data=c, col="red4")
   lines(blueWins ~ ., data=newdat, col="green4", lwd=2)
   abline(h=.5,col ='red',lwd = 4, lty = 1)
+  abline(v=filter(newdat,blueWins >= .6 & blueWins <.8)[1,1],col="blue",lwd =2, lty =1)
+  text(x=filter(newdat,blueWins >= .7 & blueWins <.8)[1,1],
+       y=filter(newdat,blueWins >= .6 & blueWins <.8)[1,2],
+       round(filter(newdat,blueWins >= .6 & blueWins <.8)[1,1],0),srt=0.2,pos=3)
 }
 
